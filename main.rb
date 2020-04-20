@@ -1,32 +1,26 @@
 require 'discordrb'
 require 'discordrb/cache'
 
-bot = Discordrb::Bot.new(token: ENV["TOKEN"], log_mode: :debug)
-#bot = Discordrb::Bot.new token: ENV["TOKEN"]
-bot.message(with_text: 'Ping!') do |event|
-	event.respond 'Pong!'
-end
+bot = Discordrb::Bot.new(token: ENV['TOKEN'], log_mode: :debug) #bot = Discordrb::Bot.new token: ENV["TOKEN"]
+bot.message(with_text: 'Ping!') { |event| event.respond 'Pong!' }
 
 bot.ready do |event|
   voice = bot.voice_connect('380159851013210135')
 
-
-  p "-------------------------------"
+  p '-------------------------------'
   voice.play_io('music.mp3')
 
-  p "-------------------------------"
+  p '-------------------------------'
 
   #sleep 10
 
-
-  p "-------------------------------"
+  p '-------------------------------'
   bot.voice_destory('380159850577133571')
 
-  p "-------------------------------"
+  p '-------------------------------'
 end
 
-Signal.trap(:TERM) { bot.stop(true)}
-Signal.trap(:INT) {bot.stop(true)}
+Signal.trap(:TERM) { bot.stop(true) }
+Signal.trap(:INT) { bot.stop(true) }
 
 bot.run
-
