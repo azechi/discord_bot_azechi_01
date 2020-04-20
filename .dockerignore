@@ -1,4 +1,4 @@
 .git
-app/.bundle
-app/vendor
+.bundle
+vendor
 
