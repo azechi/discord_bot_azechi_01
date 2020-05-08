@@ -1,6 +1,6 @@
 FROM ruby AS builder
 
-COPY ./app/Gemfile ./app/Gemfile.lock ./
+COPY ./Gemfile ./Gemfile.lock ./
 
 RUN bundle install -j "$(getconf _NPROCESSORS_ONLN)" --retry 3
 
@@ -16,7 +16,7 @@ RUN apt-get update \
 
 COPY --from=builder /usr/local/bundle /usr/local/bundle
 
-COPY ./app . 
+COPY ./ . 
 
-CMD ["ruby", "main.rb"]
+CMD ["bundle", "exec", "ruby", "main.rb"]
 

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/discordrb/discordrb.git
-  revision: 830dcf10d58c443259935df0ddfca389fed6033b
+  revision: b739895505aac8bf6d0cbbda98ade1600e660abb
   specs:
     discordrb (3.3.0)
       discordrb-webhooks (~> 3.3.0)
@@ -9,7 +9,7 @@ GIT
       rest-client (>= 2.0.0)
       websocket-client-simple (>= 0.3.0)
     discordrb-webhooks (3.3.0)
-      rest-client (>= 2.1.0.rc1)
+      rest-client (>= 2.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -23,7 +23,7 @@ GEM
       domain_name (~> 0.5)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2019.1009)
+    mime-types-data (3.2020.0425)
     netrc (0.11.0)
     opus-ruby (1.0.1)
       ffi
