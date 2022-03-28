@@ -40,8 +40,9 @@ async fn main() {
         shard_man.lock().await.shutdown_all().await;
     });
 
-    match client.start().await {
-        Err(why) => println!("Client error: {:?}", why),
-        s => println!("Client shutdown: {:?}", s),
+    if let Err(why) = client.start().await {
+        println!("Client error: {:?}", why);
+    } else {
+        println!("Client shutdown.");
     }
 }
