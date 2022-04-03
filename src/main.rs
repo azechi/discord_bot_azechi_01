@@ -6,6 +6,8 @@ use serenity::{
     prelude::*,
 };
 
+use tokio::signal::unix::{signal, SignalKind};
+
 struct Handler;
 
 #[async_trait]
@@ -25,6 +27,7 @@ impl EventHandler for Handler {
 
 #[tokio::main]
 async fn main() {
+
     let token = env::var("BOT_TOKEN").expect("token");
     let mut client = Client::builder(&token)
         .event_handler(Handler)
@@ -33,10 +36,14 @@ async fn main() {
 
     let shard_man = client.shard_manager.clone();
 
+    let mut sigint = signal(SignalKind::interrupt()).expect("Could not register SIGINT handler");
+    let mut sigterm = signal(SignalKind::terminate()).expect("Could not register SIGTERM handler");
+
     tokio::spawn(async move {
-        tokio::signal::ctrl_c()
-            .await
-            .expect("Could not register ctrl+c handler");
+        tokio::select! {
+            _ = sigint.recv() => println!("SIGINT"),
+            _ = sigterm.recv() => println!("SIGTERM"),
+        }
         shard_man.lock().await.shutdown_all().await;
     });
 
