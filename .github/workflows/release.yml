@@ -22,4 +22,4 @@ jobs:
           cache-to: type=gha,mode=max
           push: true
           tags: registry.heroku.com/azechi-discord-bot/worker
-      - run: echo ${{ toJSON(steps)}}
+      - run: echo '${{ toJSON(steps)}}'
