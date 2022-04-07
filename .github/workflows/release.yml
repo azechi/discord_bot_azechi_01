@@ -23,7 +23,7 @@ jobs:
       - run: |
           mkdir tmp
           cp Dockerfile.release tmp/Dockerfile
-          cp /usr/local/cargo/bin/discord_bot_azechi_01 tmp/bot
+          cp /home/runner/.cargo/bin/discord_bot_azechi_01 tmp/bot
       - uses: docker/login-action@v1
         with:
           registry: registry.heroku.com
