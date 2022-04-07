@@ -9,6 +9,21 @@ jobs:
   release-heroku:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock')}}
+      - run: cargo install --path .
+      - run: |
+          mkdir tmp
+          cp Dockerfile.release tmp/Dockerfile
+          cp /usr/local/cargo/bin/discord_bot_azechi_01 tmp/bot
       - uses: docker/login-action@v1
         with:
           registry: registry.heroku.com
@@ -18,8 +33,7 @@ jobs:
       - uses: docker/build-push-action@v2
         id: deploy
         with:
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          context: tmp
           push: true
           tags: registry.heroku.com/azechi-discord-bot/worker
       - run: echo '${{ toJSON(steps)}}'
