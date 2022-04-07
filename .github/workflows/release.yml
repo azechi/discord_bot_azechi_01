@@ -19,11 +19,11 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock')}}
-      - run: cargo install --path .
+      - run: cargo build --profile release 
       - run: |
           mkdir tmp
           cp Dockerfile.release tmp/Dockerfile
-          cp /home/runner/.cargo/bin/discord_bot_azechi_01 tmp/bot
+          cp target/release/discord_bot_azechi_01 tmp/bot
       - uses: docker/login-action@v1
         with:
           registry: registry.heroku.com
