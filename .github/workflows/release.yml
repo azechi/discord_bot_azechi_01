@@ -40,7 +40,7 @@ jobs:
       - run: |
           curl -X PATCH \
             https://api.heroku.com/apps/azechi-discord-bot/formation \
-            -d '{ "update": [{"type":"worker", "docker_image":"${{steps.deploy.outputs.imageid}}"}] }' \
+            -d '{ "updates": [{"type":"worker", "docker_image":"${{steps.deploy.outputs.imageid}}"}] }' \
             -H "Authorization: Bearer ${{secrets.HEROKU_TOKEN}}" \
             -H "Content-Type: application/json" \
             -H "Accept: application/vnd.heroku+json; version=3.docker-releases"
