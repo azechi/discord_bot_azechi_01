@@ -29,14 +29,12 @@ jobs:
           registry: registry.heroku.com
           username: _
           password: ${{secrets.HEROKU_TOKEN}}
-      - uses: docker/setup-buildx-action@v1
       - uses: docker/build-push-action@v2
         id: deploy
         with:
           context: tmp
           push: true
           tags: registry.heroku.com/azechi-discord-bot/worker
-      - run: echo '${{ toJSON(steps)}}'
       - run: |
           curl -X PATCH \
             https://api.heroku.com/apps/azechi-discord-bot/formation \
