@@ -28,6 +28,11 @@ impl EventHandler for Handler {
 #[tokio::main]
 async fn main() {
 
+    {
+        use std::process;
+        println!("My pid is {}", process::id());
+    }
+
     let token = env::var("BOT_TOKEN").expect("token");
     let mut client = Client::builder(&token)
         .event_handler(Handler)
