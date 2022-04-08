@@ -34,10 +34,10 @@ jobs:
         with:
           context: tmp
           push: true
-          tags: registry.heroku.com/azechi-discord-bot/worker
+          tags: registry.heroku.com/${{secrets.HEROKU_APP_NAME}}/worker
       - run: |
           curl -X PATCH \
-            https://api.heroku.com/apps/azechi-discord-bot/formation \
+            https://api.heroku.com/apps/${{secrets.HEROKU_APP_NAME}}/formation \
             -d '{ "updates": [{"type":"worker", "docker_image":"${{steps.deploy.outputs.imageid}}"}] }' \
             -H "Authorization: Bearer ${{secrets.HEROKU_TOKEN}}" \
             -H "Content-Type: application/json" \
