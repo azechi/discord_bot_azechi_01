@@ -34,7 +34,10 @@ async fn main() {
     }
 
     let token = env::var("BOT_TOKEN").expect("token");
-    let mut client = Client::builder(&token)
+    let intents = GatewayIntents::MESSAGE_CONTENT
+        | GatewayIntents::GUILD_MESSAGES
+        | GatewayIntents::DIRECT_MESSAGES;
+    let mut client = Client::builder(&token, intents)
         .event_handler(Handler)
         .await
         .expect("Err creating client");
